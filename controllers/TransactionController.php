@@ -11,9 +11,9 @@ class TransactionController {
         $result = $service->doOperation($type, $telephone, $montant);
 
         if ($result === "success") {
-            header("Location: ../index.php?success=Opération effectuée avec succès ✅");
+            header("Location: /gestion-wallet/index.php?success=Opération effectuée avec succès ✅");
         } else {
-            header("Location: ../index.php?error=" . urlencode($result));
+            header("Location: /gestion-wallet/index.php?error=" . urlencode($result));
         }
         exit;
     }
