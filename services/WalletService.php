@@ -1,5 +1,6 @@
 <?php
-// Chemins corrigés avec __DIR__
+// Inclusion correcte de tous les fichiers nécessaires
+require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Wallet.php';
 require_once __DIR__ . '/../models/Transaction.php';
 
@@ -7,13 +8,8 @@ class WalletService {
     private $walletModel;
     private $transactionModel;
 
-    public function __construct($db) {
-        $this->walletModel = new Wallet(null); // On passera la connexion plus tard
-        $this->transactionModel = new Transaction(null);
-    }
-
     public function createWallet($data) {
-        // Validation téléphone (9 chiffres, commence par 70,71,76,77,78)
+        // Validation téléphone
         if (!preg_match("/^(77|76|70|78|71)[0-9]{7}$/", $data['telephone'])) {
             return "Le numéro doit contenir exactement 9 chiffres et commencer par 70, 71, 76, 77 ou 78.";
         }
@@ -68,10 +64,8 @@ class WalletService {
             $nouveauSolde -= $total;
         }
 
-        // Mise à jour solde
         $walletModel->updateSolde($wallet['code'], $nouveauSolde);
 
-        // Création transaction
         $transData = [
             'wallet_code' => $wallet['code'],
             'code_trans'  => 'TRANS-' . strtoupper(uniqid()),
