@@ -15,9 +15,9 @@ class WalletController {
         $result = $service->createWallet($data);
 
         if ($result === "success") {
-            header("Location: ../index.php?success=Wallet créé avec succès ✅");
+            header("Location: /gestion-wallet/index.php?success=Wallet créé avec succès ✅");
         } else {
-            header("Location: ../index.php?error=" . urlencode($result));
+            header("Location: /gestion-wallet/index.php?error=" . urlencode($result));
         }
         exit;
     }
